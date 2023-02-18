@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import {setAlert} from '../actions/alert'
+import { setAlert } from "../actions/alert";
 import { connect } from "react-redux";
-import PropTypes from 'prop-types'
-
-const Register = ({setAlert}) => {
+import PropTypes from "prop-types";
+import { register } from "../actions/auth";
+const Register = ({ setAlert, register }) => {
   const [formData, setformData] = useState({
     name: "",
     email: "",
@@ -18,9 +18,10 @@ const Register = ({setAlert}) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      setAlert("wrong credentials",'danger');
+      setAlert("wrong credentials", "danger");
     } else {
-      const newUser = { name, email, password };
+      register({ name, email, password });
+      // const newUser = { name, email, password };
       // console.log("==>😒", newUser);
       // try {
       //   const config = {
@@ -45,7 +46,6 @@ const Register = ({setAlert}) => {
   };
   return (
     <div className="container">
-    
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead">
         <i className="fas fa-user"></i> Create Your Account
@@ -56,7 +56,6 @@ const Register = ({setAlert}) => {
             type="text"
             placeholder="Name"
             name="name"
-            required
             value={name}
             onChange={(e) => onChange(e)}
           />
@@ -79,7 +78,6 @@ const Register = ({setAlert}) => {
             type="password"
             placeholder="Password"
             name="password"
-            minLength="6"
             value={password}
             onChange={(e) => onChange(e)}
           />
@@ -89,7 +87,6 @@ const Register = ({setAlert}) => {
             type="password"
             placeholder="Confirm Password"
             name="password2"
-            minLength="6"
             value={password2}
             onChange={(e) => onChange(e)}
           />
@@ -102,7 +99,8 @@ const Register = ({setAlert}) => {
     </div>
   );
 };
-Register.propTypes={
-  setAlert:PropTypes.func.isRequired,
-}
-export default connect(null,{setAlert})(Register);
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+};
+export default connect(null, { setAlert, register })(Register);
