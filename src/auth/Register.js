@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import {setAlert} from '../actions/alert'
+import { connect } from "react-redux";
+import PropTypes from 'prop-types'
 
-const Register = () => {
+const Register = ({setAlert}) => {
   const [formData, setformData] = useState({
     name: "",
     email: "",
@@ -11,15 +15,37 @@ const Register = () => {
   const { name, email, password, password2 } = formData;
   const onChange = (e) =>
     setformData({ ...formData, [e.target.name]: e.target.value });
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log("wrong credentials");
+      setAlert("wrong credentials",'danger');
+    } else {
+      const newUser = { name, email, password };
+      // console.log("==>😒", newUser);
+      // try {
+      //   const config = {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   };
+      //   const body = JSON.stringify(newUser);
+      //   // console.log("🤦‍♂️", body);
+      //   const res = await axios.post(
+      //     "/api/user",
+      //     body,
+      //     config
+      //   );
+      //   console.log("data...sending to DB", res.data);
+      // } catch (error) {
+      //   console.log("catch block run",error.response.data);
+      // }
+      // const res=axios.post('/api/register',data)
+      // console.log(formData);
     }
-    console.log(formData);
   };
   return (
     <div className="container">
+    
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead">
         <i className="fas fa-user"></i> Create Your Account
@@ -71,10 +97,12 @@ const Register = () => {
         <input type="submit" className="btn btn-primary" value="Register" />
       </form>
       <p className="my-1">
-        Already have an account? <Link href="login">Sign In</Link>
+        Already have an account? <Link to="/login">Sign In</Link>
       </p>
     </div>
   );
 };
-
-export default Register;
+Register.propTypes={
+  setAlert:PropTypes.func.isRequired,
+}
+export default connect(null,{setAlert})(Register);
