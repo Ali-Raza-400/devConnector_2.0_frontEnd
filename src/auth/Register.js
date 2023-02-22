@@ -22,7 +22,7 @@ const Register = ({ setAlert, register }) => {
     } else {
       register({ name, email, password });
       // const newUser = { name, email, password };
-      // console.log("==>😒", newUser);
+      // console.log("==>😒😒", newUser);
       // try {
       //   const config = {
       //     headers: {

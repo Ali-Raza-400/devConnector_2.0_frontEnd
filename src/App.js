@@ -7,7 +7,16 @@ import Login from "./auth/Login";
 import { Provider } from "react-redux";
 import store from "./store";
 import Alert from "./components/layout/Alert";
+import setAuthToken from "./utils/setAuthTokens";
+import { useEffect } from "react";
+import { LoadUser } from "./actions/auth";
+if(localStorage.token){
+  setAuthToken(localStorage.token)
+}
 function App() {
+  useEffect(()=>{
+    store.dispatch(LoadUser())
+  },[])
   return (
     <Provider store={store}>
       <div className="App">
