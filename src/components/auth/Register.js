@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link,Navigate } from "react-router-dom";
-import { setAlert } from "../actions/alert";
+import { setAlert } from "../../actions/alert";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { register } from "../actions/auth";
+import { register } from "../../actions/auth";
 const Register = ({ setAlert, register ,isAuthenticated}) => {
   const [formData, setformData] = useState({
     name: "",
