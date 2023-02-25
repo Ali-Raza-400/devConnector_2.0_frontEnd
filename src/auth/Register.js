@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link,Navigate } from "react-router-dom";
 import { setAlert } from "../actions/alert";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { register } from "../actions/auth";
-const Register = ({ setAlert, register }) => {
+const Register = ({ setAlert, register ,isAuthenticated}) => {
   const [formData, setformData] = useState({
     name: "",
     email: "",
@@ -44,6 +43,10 @@ const Register = ({ setAlert, register }) => {
       // console.log(formData);
     }
   };
+
+  if(isAuthenticated){
+    return <Navigate to="/dashboard"/>
+  }
   return (
     <div className="container">
       <h1 className="large text-primary">Sign Up</h1>
@@ -102,5 +105,9 @@ const Register = ({ setAlert, register }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  isAuthenticated:PropTypes.bool,
 };
-export default connect(null, { setAlert, register })(Register);
+const mapStateToProp = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+export default connect(mapStateToProp, { setAlert, register })(Register);
