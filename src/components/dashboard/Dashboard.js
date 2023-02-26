@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Spinner from "../layout/Spinner";
 import { Link } from "react-router-dom";
+import DashboardActions from "./DashboardAction";
 const Dashboard = ({
   getCurrentProfile,
   auth: { user },
@@ -21,7 +22,7 @@ const Dashboard = ({
       <p className="lead">
         <i className="fas fa-user" /> Welcome {profile && profile.user.name}
       </p>
-      {profile !== null ? <>has Profile</> : <>
+      {profile !== null ? <div><DashboardActions/></div> : <>
           <p>You have not yet setup a profile, please add some info</p>
           <Link to="/create-profile" className="btn btn-primary my-1">
             Create Profile

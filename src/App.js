@@ -12,26 +12,36 @@ import { useEffect } from "react";
 import { LoadUser } from "./actions/auth";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/routing/PrivateRoute";
-if(localStorage.token){
-  setAuthToken(localStorage.token)
+import CreateProfile from "./components/profile-form/CreateProfile";
+import EditProfile from "./components/profile-form/EditProfile";
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
 }
 function App() {
-  useEffect(()=>{
-    store.dispatch(LoadUser())
-  },[])
+  useEffect(() => {
+    store.dispatch(LoadUser());
+  }, []);
   return (
     <Provider store={store}>
       <div className="App">
         <Router>
-          <Navbar  />
+          <Navbar />
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route
-            path="dashboard"
-            element={<PrivateRoute component={Dashboard} />}
-          />
+              path="/dashboard"
+              element={<PrivateRoute component={Dashboard} />}
+            />
+            <Route
+              path="/create-profile"
+              element={<PrivateRoute component={CreateProfile} />}
+            />
+            <Route
+              path="/edit-profile"
+              element={<PrivateRoute component={EditProfile} />}
+            />
           </Routes>
           <Alert />
         </Router>
