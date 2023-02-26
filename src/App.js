@@ -11,6 +11,7 @@ import setAuthToken from "./utils/setAuthTokens";
 import { useEffect } from "react";
 import { LoadUser } from "./actions/auth";
 import Dashboard from "./components/dashboard/Dashboard";
+import PrivateRoute from "./components/routing/PrivateRoute";
 if(localStorage.token){
   setAuthToken(localStorage.token)
 }
@@ -29,7 +30,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route
             path="dashboard"
-            element={<Dashboard/> }
+            element={<PrivateRoute component={Dashboard} />}
           />
           </Routes>
           <Alert />
